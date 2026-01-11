@@ -1,6 +1,8 @@
 import {type ClassValue, clsx} from "clsx";
 import {twMerge} from "tailwind-merge";
 
+// This function is crated bt Tailwinf by default, but we have to crate it here in our case
+// because it was not created.
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
