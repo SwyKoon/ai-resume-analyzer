@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 import { usePuterStore } from "../lib/puter";
@@ -12,22 +12,24 @@ const auth = () => {
     // State to check loading state from puter store
     // It is getting reset whenever we use some other function, so good to have it here
     const { isLoading, auth } = usePuterStore();
+    const [loginRequested, setLoginRequested] = useState(false);
 
     // Page redirection for 2 cases:
     // a.) Users not logged in, to sign in
     // b.) Users now logged in, to page of their choice (home if no choice)
     const location = useLocation();
     // Page they want to visit. Extract the first next page they want to visit
-    const next = location.search.split('next=')[1];
+    const params = new URLSearchParams(location.search);
+    const next = params.get("next") || "/";
     const navigate = useNavigate();
 
     // Handle redirection in case the user is already signed in.
     // If not signed in, we stay here
     useEffect(() => {
-        if(auth.isAuthenticated) {
-            navigate(next);
+        if (loginRequested && auth.isAuthenticated) {
+            navigate(next || "/", { replace: true });
         }
-    }, [auth.isAuthenticated, next]);
+    }, [loginRequested, auth.isAuthenticated, next]);
 
     
     return (
@@ -57,7 +59,10 @@ const auth = () => {
                                         </button>
                                     ) : (
                                         <button className="auth-button" 
-                                        onClick={ auth.signIn }>
+                                        onClick={() =>{
+                                            setLoginRequested(true);
+                                            auth.signIn(); 
+                                        }}>
                                             <p>Log In</p>
                                         </button>
                                     )}
