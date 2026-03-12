@@ -114,6 +114,42 @@ form {
   .uploader-selected-file {
     @apply flex items-center justify-between p-3 bg-gray-50 rounded-2xl;
   }
+
+  /* Auth Revamp Styles */
+  .auth-split-container {
+      @apply flex flex-row min-h-screen w-full bg-[#f8faff] overflow-hidden;
+  }
+
+  .auth-left {
+      @apply flex-1 flex flex-col justify-start pt-32 px-12 lg:px-24 bg-[#e5e7eb] relative overflow-hidden;
+      background: linear-gradient(135deg, #cad2e9 0%, #ffffff 50%, #cad2e9 100%);
+  }
+
+  .auth-right {
+      @apply flex-1 flex items-center justify-center bg-white p-8 relative;
+  }
+
+  .auth-card {
+      @apply bg-white rounded-[32px] p-12 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] 
+             border border-gray-100/50 backdrop-blur-xl w-full max-w-[500px]
+             flex flex-col gap-8 transition-all duration-300;
+  }
+
+  .tag-accent {
+      @apply text-[10px] font-bold tracking-[0.2em] uppercase text-[#6366f1] mb-4;
+  }
+
+  .auth-heading {
+      @apply text-6xl font-bold tracking-tight text-[#111827] leading-[1.1] mb-6;
+  }
+
+  .auth-subtext {
+      @apply text-lg text-[#4b5563] max-w-md leading-relaxed mb-12;
+  }
+
+  .tos-text {
+      @apply text-sm text-[#9ca3af] text-center mt-4;
+  }
 }
 
 @utility bg-gradient {
@@ -148,5 +184,27 @@ form {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes rotate-y {
+  0% {
+    transform: perspective(1000px) rotateY(-5deg);
+  }
+  50% {
+    transform: perspective(1000px) rotateY(5deg);
+  }
+  100% {
+    transform: perspective(1000px) rotateY(-5deg);
+  }
+}
+
+@layer utilities {
+  .animate-rotate-y {
+    animation: rotate-y 8s ease-in-out infinite;
+  }
+  
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
   }
 }
